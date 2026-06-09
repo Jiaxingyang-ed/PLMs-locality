@@ -1,0 +1,28 @@
+# 虚拟环境
+.venv/
+
+# Python缓存
+__pycache__/
+*.pyc
+
+# 数据文件
+*.pkl
+*.npz
+*.h5
+*.xlsx
+*.csv
+*.pt
+*.pth
+*.ckpt
+
+# 数据目录
+data/
+raw_data/
+results/
+legacy/
+
+# 其他
+.DS_Store
+.vscode/
+.idea/
+*.bak
