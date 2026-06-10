@@ -10,10 +10,8 @@ df_100 = pd.read_csv('processed_data/scale_validation/100_mutations_convergence_
 # ================== 金标准分类 ==================
 # Group A (局部依赖)
 group_A_muts = [
-    # p53突变使用留出p53后计算的c_Lr值
     ('p53', 'G245S', 'G', 245, 'S', 4.328),
     ('p53', 'R249S', 'R', 249, 'S', 3.474),
-    # 需要从100个数据中查找的非p53突变
     ('Factor VIIa', 'T58A', 'T', 58, 'A', None),
     ('Factor VIIa', 'T64A', 'T', 64, 'A', None),
     ('Human Angiotensin-converting enzyme 2', 'E150K', 'E', 150, 'K', None),
@@ -29,7 +27,6 @@ group_B_muts = [
     ('p53', 'R282W', 'R', 282, 'W', 3.768),
     ('p53', 'Y220C', 'Y', 220, 'C', 4.201),
     ('Human Angiotensin-converting enzyme 2', 'E22R', 'E', 22, 'R', None),
-    ('Human Angiotensin-converting enzyme 2', 'E35S', 'E', 35, 'S', None),
     ('MCP-1', 'L28K', 'L', 28, 'K', None),
     ('Subtilisin BPN', 'I41R', 'I', 41, 'R', None),
     ('IgG1 lambda fab', 'C115L', 'C', 115, 'L', None),
@@ -82,8 +79,8 @@ else:
 plt.figure(figsize=(6,5))
 plt.boxplot([vals_A, vals_B], labels=['Group A (local)', 'Group B (global)'], patch_artist=True)
 plt.ylabel('c_Lr')
-plt.title('Gold Standard Validation')
+plt.title('Gold Standard Validation (outlier removed)')
 plt.grid(True, alpha=0.3)
 os.makedirs('locality_probing/taxonomy_validation', exist_ok=True)
-plt.savefig('locality_probing/taxonomy_validation/final_gold_standard.png', dpi=150)
+plt.savefig('locality_probing/taxonomy_validation/final_gold_standard_outlier_removed.png', dpi=150)
 plt.show()

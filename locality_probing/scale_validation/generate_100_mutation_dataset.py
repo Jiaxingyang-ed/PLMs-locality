@@ -8,27 +8,14 @@ from torch import nn
 from scipy.optimize import curve_fit
 from tqdm import tqdm
 
-sys.path.append(os.path.join(os.path.dirname(__file__), "../../scripts"))
-from config import RESIDUE_EMB_DIR
+# 确保项目根目录在sys.path中
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+from config import RESIDUE_EMB_DIR, LOCAL_ENCODER_COSINE
+from models import LocalSeqEncoder
 
 DEVICE = "cpu"
 MAX_WINDOW_LEN = 61
-MODEL_PATH = "locality_probing/local_encoder/local_encoder_cosine.pt"
-
-# ================== 模型 ==================
-class LocalSeqEncoder(nn.Module):
-    def __init__(self, vocab_size=20, embed_dim=64, hidden_dim=128, output_dim=1024):
-        super().__init__()
-        self.embed = nn.Embedding(vocab_size, embed_dim)
-        encoder_layer = nn.TransformerEncoderLayer(d_model=embed_dim, nhead=4,
-                                                   dim_feedforward=hidden_dim, batch_first=True)
-        self.transformer = nn.TransformerEncoder(encoder_layer, num_layers=2)
-        self.fc = nn.Linear(embed_dim, output_dim)
-    def forward(self, seq_idx, mut_idx=None):
-        x = self.embed(seq_idx)
-        x = self.transformer(x)
-        x = x.mean(dim=1)
-        return self.fc(x)
+MODEL_PATH = LOCAL_ENCODER_COSINE
 
 model = LocalSeqEncoder().to(DEVICE)
 model.load_state_dict(torch.load(MODEL_PATH, map_location=DEVICE))
