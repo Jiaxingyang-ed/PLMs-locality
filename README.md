@@ -8,53 +8,6 @@ This project introduces a locality-probing framework to quantify irreducible glo
 
 ## Framework Overview
 
-<div align="center">
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    LOCALITY PROBING FRAMEWORK                    │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  Global PLM Embedding (h_global)                                │
-│           │                                                    │
-│           │ Mutation Δ                                          │
-│           ▼                                                    │
-│  Mutated Embedding (h_mut)                                      │
-│           │                                                    │
-│           │ Δh = h_mut - h_global                               │
-│           ▼                                                    │
-│  Representation Shift (Δh)                                      │
-│           │                                                    │
-│           ├─────────────────────────────────────────────────┐  │
-│           │                                                 │  │
-│           ▼                                                 │  │
-│  Local Encoder (trained on windows)                         │  │
-│           │                                                 │  │
-│           │ Predicted Δh_local                               │  │
-│           ▼                                                 │  │
-│  Local Prediction (Δh_local)                                 │  │
-│           │                                                 │  │
-│           │                                                 │  │
-│  Geometric Decomposition:                                     │  │
-│  • L_θ = 1 - cos(Δh_local, Δh_global)  (angular)            │  │
-│  • L_m = |log(||Δh_local|| / ||Δh_global||)|  (magnitude)   │  │
-│  • L_r = ||Δh_local - Δh_global|| / ||Δh_global||  (residual)│  │
-│           │                                                 │  │
-│           ▼                                                 │  │
-│  Convergence Analysis across window radii r                   │  │
-│           │                                                 │  │
-│           ▼                                                 │  │
-│  Irreducible Residual Plateau c                             │  │
-│           │                                                 │  │
-│           ▼                                                 │  │
-│  Biological Correlation (NOC clusters, ΔΔG)                  │  │
-│                                                           │  │
-└─────────────────────────────────────────────────────────────┘  │
-                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-</div>
 
 ---
 
