@@ -8,6 +8,7 @@ This project introduces a locality-probing framework to quantify irreducible glo
 
 ## Framework Overview
 
+![Framework overview](Figures/framework_overview.png)
 
 ---
 
